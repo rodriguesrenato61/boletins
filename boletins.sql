@@ -163,6 +163,27 @@ RETURNS BOOLEAN
 		
 	RETURN @retorno;/*retornando resultado*/
 	END $$
+	
+/*Function faz_disciplina
+Verifica se um aluno faz ou não uma disciplina*/
+CREATE FUNCTION faz_disciplina(codigo_disciplina INTEGER, matricula_aluno INTEGER)
+RETURNS BOOLEAN
+	BEGIN
+    
+        SET @faz_disciplina = (SELECT COUNT(*) FROM alunos_disciplinas WHERE matr_aluno = matricula_aluno AND cod_disciplina = codigo_disciplina);/*verifica se o aluno faz essa disciplina*/
+        
+        IF(@faz_disciplina > 0)THEN/*se o aluno faz essa disciplina retorna 1(verdadeiro)*/
+	
+            SET @retorno = 1;
+	    
+        ELSE/*se o aluno não faz essa disciplina retorna 0 (falso)*/
+	
+            SET @retorno = 0;
+	    
+        END IF;
+        
+        RETURN @retorno;/*retornando o resultado*/
+    END $$
 
 DELIMITER ;
 
